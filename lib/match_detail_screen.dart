@@ -26,10 +26,26 @@ class MatchDetailScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('${match['name']}', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.grey.shade600),),
-                          Text('${match['goals']}', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                          Text('Time: ${match['time']}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                          Text('Total Time: ${match['total_time']}',style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          Text(
+                            '${match['name']}',
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey.shade600),
+                          ),
+                          Text(
+                            '${match['goals']}',
+                            style: const TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Time: ${match['time']}',
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          Text('Total Time: ${match['total_time']}',
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
                           // Add more details as needed
                         ],
                       ),
