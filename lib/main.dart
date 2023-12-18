@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_assignment/match_detail_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'screens/match_list_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,65 +20,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: MatchListScreen(),
-    );
-  }
-}
-
-class MatchListScreen extends StatefulWidget {
-  const MatchListScreen({super.key});
-
-  @override
-  State<MatchListScreen> createState() => _MatchListScreenState();
-}
-
-class _MatchListScreenState extends State<MatchListScreen> {
-  final CollectionReference _matchesRef =
-      FirebaseFirestore.instance.collection('match_list');
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Match List"),
-      ),
-      body: FutureBuilder<QuerySnapshot>(
-          future: _matchesRef.get(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              List<DocumentSnapshot> matches = snapshot.data?.docs ?? [];
-              return ListView.builder(
-                  itemCount: matches.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(
-                        matches[index]["name"],
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MatchDetailScreen(
-                                        match: matches[index].data()
-                                            as Map<String, dynamic>,
-                                      )));
-                        },
-                        icon: const Icon(Icons.arrow_forward),
-                      ),
-                    );
-                  });
-            }
-          }),
     );
   }
 }
